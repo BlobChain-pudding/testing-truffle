@@ -51,6 +51,28 @@ contract("ReservationTokenFunctions", async accounts  =>{
       // accept reservation by restaurant 
       const acceptReservation = await instance6.acceptReservation(retrieveReservations[0],userAccount,{from: restaurantAccount});
     });
+    it("Visit Restaurant Successful", async() =>{
+      const restaurantAccount = accounts[7];
+      const userAccount = accounts[8];
+      // deploy restaurant
+      const restaurantName = "Saizeriya";
+      const instance6 =  await TokenFunctionality.deployed();
+      const restaurantCreateEvent = await instance6.registerRestaurant(restaurantName,{from: restaurantAccount});
+      // create reservation
+      const dateTime = 1000508; //24htime-DD-MM
+      const tableNo = 1;
+      const pax = 2;
+      const reservationCreationEvent = await instance6.createReservation(dateTime,tableNo,pax,{from: restaurantAccount});
+      // check reservation from getRestaurantReservationsAll
+      const retrieveReservations = await instance6.getRestaurantReservationsAll.call(restaurantAccount);
+      // initiate user
+      const userName = "Satoshi";
+      const userCreateEvent = await instance6.registerUser(userName,{from: userAccount});
+      // accept reservation by restaurant 
+      const acceptReservation = await instance6.acceptReservation(retrieveReservations[0],userAccount,{from: restaurantAccount});
+      // user visited restaurant
+      const visitReservation = await instance6.visitedRestaurant(retrieveReservations[0],userAccount,{from: restaurantAccount});
+    });
     it("Create Two Restaurant with Same Account Address Throws Error ", async() =>{
       const restaurantAccount = accounts[3];
       const restaurantName = "Saizeriya";
