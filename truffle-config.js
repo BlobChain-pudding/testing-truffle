@@ -24,7 +24,7 @@
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 var HDWalletProvider = require("truffle-hdwallet-provider");
-var mnemonic = "knife patch lock jar guide final ten slice inflict wish century lazy";
+var mnemonic = "";
 
 module.exports = {
   /**
@@ -52,7 +52,7 @@ module.exports = {
     },
     rinkeby: {
       provider: function() { 
-       return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/3759ddc88b9744b8a29342b9556e5b56");
+       return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/<api-key>");
       },
       network_id: 4,
       gas: 4500000,

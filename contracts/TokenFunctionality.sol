@@ -1,9 +1,8 @@
 pragma solidity >=0.5.0 <0.6.0;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol"; 
 import "./Factory.sol";
 
-contract ReservationTokenFunctions is Factory, ERC721 {
+contract ReservationTokenFunctions is Factory{
 
     function balanceOf(address _userAddress) public view returns (uint256) {
         User memory user = addressToUser[_userAddress];
@@ -119,13 +118,4 @@ contract ReservationTokenFunctions is Factory, ERC721 {
         return (outstanding, total);
     }
 
-    function testPrintTokenOwnership(bytes32 _reservationHash) public view returns (address) {
-        ReservationToken memory token = hashToToken[_reservationHash];
-        return token.ownerAddress;
-    }
-    
-    function testPrintOutstandingReservations(address _userAddress) public view returns (uint) {
-        User memory user = addressToUser[_userAddress];
-        return user.outstandingReservations;
-    }
 }
